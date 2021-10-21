@@ -19,6 +19,13 @@ rpcdump.py @192.168.1.10 | egrep 'MS-RPRN|MS-PAR'
 Protocol: [MS-PAR]: Print System Asynchronous Remote Protocol 
 Protocol: [MS-RPRN]: Print System Remote Protocol <br />
 
+You can also check for the following values on your machine: <br />
+REG QUERY "HKLM\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint"
+
+HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint
+    RestrictDriverInstallationToAdministrators    REG_DWORD    0x0
+    NoWarningNoElevationOnInstall    REG_DWORD    0x1 <br />
+
 # Mitigation
 First, make sure that all security patches have been installed then perform the following workaround. <br />
 CISA (Cybersecurity and Infrastructure Security Agency) recommends administrators to disable the print spooler service in Domain Controllers and systems that don't print. “Due to the possibility for exposure, domain controllers and Active Directory admin systems need to have the Print spooler service disabled. The recommended way to do this is using a Group Policy Object.” Admin can also prevent remote print requests by using the Group Policy Object. Local printing will still be available on directly connected devices. 
