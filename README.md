@@ -26,7 +26,10 @@ REG QUERY "HKLM\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint"
 HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint
     RestrictDriverInstallationToAdministrators    REG_DWORD    0x0
     NoWarningNoElevationOnInstall    REG_DWORD    0x1 <br />
-
+    
+    OR you can use the following Powershell command: <br />
+    Get-Service -Name Spooler <br />
+    
 # Mitigation
 First, make sure that all security patches have been installed then perform the following workaround for an added layer of security. <br />
 CISA (Cybersecurity and Infrastructure Security Agency) recommends administrators to disable the print spooler service in Domain Controllers and systems that do not print. _“Due to the possibility for exposure, domain controllers and Active Directory admin systems need to have the Print spooler service disabled. The recommended way to do this is using a Group Policy Object.”_ <br />
@@ -41,9 +44,9 @@ Stop-Service -Name Spooler -Force
 
 Set-Service -Name Spooler -StartupType Disabled <br />
 
-# Isolation and Recovery
-Isolation: Microsoft 
+**Make sure to restart the print spooler after it has been disabled**
 
+# Reproduction of the exploit <br />
 
 # Related Links
 https://blog.talosintelligence.com/2021/07/printnightmare-coverage.html <br />
