@@ -1,4 +1,4 @@
-# Welcome to our PrintNightmare exploit walkthrough project page.
+# Welcome to our PrintNightmare exploit Capstone writeup.
 This is our final project for the OKU 2105 Fullstack Academy Cybersecurity course.
 We hope we educate you on this exploit and how to mitigate it.
 
