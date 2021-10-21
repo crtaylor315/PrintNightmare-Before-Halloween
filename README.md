@@ -6,14 +6,15 @@ This project centers on CVE-2021-1675, also known as the original zero-day explo
 
 # Background
 What even is "PrintNightmare"? <br />
-PrintNightmare is the name given to CVE-2021-1675, which is a privilige escalation bug found on Windows environments in the print spooler service. The CVSS was originally deemed low then escalated to critical (9.3). <br />
+PrintNightmare is the name given to CVE-2021-1675, which is a privilige escalation bug found on Windows environments in the print spooler service which is enabled by default. The CVSS was originally deemed low then escalated to critical (9.3). <br />
 The concern is that local authenticated users can obtain admin rights via privilege escalation and remote unauthenticated users can perform remote code execution (RCE) through signed and unsigned loaded drivers to cause havoc in vulnerable enterprise environments. This exploit was initially patched by Microsoft on June 8, 2021 and has been patched several times; however, rumor is that this exploit is still executable in Windows environments.
 
 # Detection
 
 
 # Mitigation
-CISA (Cybersecurity and Infrastructure Security Agency) recommends administrators to disable the print spooler service in Domain Controllers and systems that don't print. “Due to the possibility for exposure, domain controllers and Active Directory admin systems need to have the Print spooler service disabled. The recommended way to do this is using a Group Policy Object.” Admin can also prevent remote print requests by using the Group Policy Object. Local printing will still be available on directly connected devices.
+First, simply make sure that all security patches have been installed. <br />
+CISA (Cybersecurity and Infrastructure Security Agency) recommends administrators to disable the print spooler service in Domain Controllers and systems that don't print. “Due to the possibility for exposure, domain controllers and Active Directory admin systems need to have the Print spooler service disabled. The recommended way to do this is using a Group Policy Object.” Admin can also prevent remote print requests by using the Group Policy Object. Local printing will still be available on directly connected devices. 
 
 # Isolation and Recovery
 
