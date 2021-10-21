@@ -6,7 +6,7 @@ This project centers on CVE-2021-1675, also known as the original zero-day explo
 
 # Background
 What even is "PrintNightmare"? <br />
-PrintNightmare is the name given to CVE-2021-1675 (CVSS 9.3 (critical)), which is a privilige escalation bug found on Windows environments in the print spooler service. The concern is that authenticated users can admin rights via privilege escalation and can even perform remote code execution (RCE) through signed and unsigned loaded drivers to cause havoc in enterprise environments. This exploit was initially patched by Microsoft on June 8, 2021 and has been patched several times; however, rumor is that this exploit is still executable in Windows environments.
+PrintNightmare is the name given to CVE-2021-1675 (CVSS 9.3 (critical)), which is a privilige escalation bug found on Windows environments in the print spooler service. The concern is that authenticated users can obtain admin rights via privilege escalation and can even perform remote code execution (RCE) through signed and unsigned loaded drivers to cause havoc in enterprise environments. This exploit was initially patched by Microsoft on June 8, 2021 and has been patched several times; however, rumor is that this exploit is still executable in Windows environments.
 
 # Detection
 
