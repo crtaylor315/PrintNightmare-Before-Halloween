@@ -27,8 +27,9 @@ HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint
     NoWarningNoElevationOnInstall    REG_DWORD    0x1 <br />
 
 # Mitigation
-First, make sure that all security patches have been installed then perform the following workaround. <br />
-CISA (Cybersecurity and Infrastructure Security Agency) recommends administrators to disable the print spooler service in Domain Controllers and systems that don't print. “Due to the possibility for exposure, domain controllers and Active Directory admin systems need to have the Print spooler service disabled. The recommended way to do this is using a Group Policy Object.” Admin can also prevent remote print requests by using the Group Policy Object. Local printing will still be available on directly connected devices. 
+First, make sure that all security patches have been installed then perform the following workaround for an added layer of security. <br />
+CISA (Cybersecurity and Infrastructure Security Agency) recommends administrators to disable the print spooler service in Domain Controllers and systems that do not print. _“Due to the possibility for exposure, domain controllers and Active Directory admin systems need to have the Print spooler service disabled. The recommended way to do this is using a Group Policy Object.”_ <br />
+Admin can also prevent remote print requests by using the Group Policy Object. Local printing will still be available for directly connected devices.
 
 Example: <br />
 Stop-Service Spooler
