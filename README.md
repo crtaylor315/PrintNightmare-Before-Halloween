@@ -28,7 +28,7 @@ HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint
     NoWarningNoElevationOnInstall    REG_DWORD    0x1 <br />
     
     OR you can use the following Powershell command: <br />
-    Get-Service -Name Spooler <br />
+     <br />
     
 # Mitigation
 First, make sure that all security patches have been installed then perform the following workaround for an added layer of security. <br />
