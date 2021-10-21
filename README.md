@@ -19,3 +19,4 @@ https://blog.talosintelligence.com/2021/07/printnightmare-coverage.html <br />
 https://www.cvedetails.com/cve-details.php?t=1&cve_id=CVE-2021-1675  <br />
 https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-1675 <br />
 https://github.com/cube0x0/CVE-2021-1675 <br />
+https://www.splunk.com/en_us/blog/security/i-pity-the-spool-detecting-printnightmare-cve-2021-34527.html <br />
