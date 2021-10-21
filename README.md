@@ -14,18 +14,18 @@ Is your system vulnerable? Here's how to find out: <br />
 We can run a scan in the command line using the code provided by Impacket called **rpcdump.py** (located in the code section) to scan for vulnerable hosts. If it returns with a value, the host may be vulnerable to the exploit. <br />
 
 Example: <br />
-_rpcdump.py @192.168.1.10 | egrep 'MS-RPRN|MS-PAR'
+rpcdump.py @192.168.1.10 | egrep 'MS-RPRN|MS-PAR'
 
 Protocol: [MS-PAR]: Print System Asynchronous Remote Protocol 
-Protocol: [MS-RPRN]: Print System Remote Protocol_ <br />
+Protocol: [MS-RPRN]: Print System Remote Protocol <br />
 
 # Mitigation
 First, make sure that all security patches have been installed then perform the following workaround. <br />
 CISA (Cybersecurity and Infrastructure Security Agency) recommends administrators to disable the print spooler service in Domain Controllers and systems that don't print. “Due to the possibility for exposure, domain controllers and Active Directory admin systems need to have the Print spooler service disabled. The recommended way to do this is using a Group Policy Object.” Admin can also prevent remote print requests by using the Group Policy Object. Local printing will still be available on directly connected devices. 
 
 Example: <br />
-_Stop-Service Spooler
-REG ADD  "HKLM\SYSTEM\CurrentControlSet\Services\Spooler"  /v "Start" /t REG_DWORD /d "4" /f_ <br />
+Stop-Service Spooler
+REG ADD  "HKLM\SYSTEM\CurrentControlSet\Services\Spooler"  /v "Start" /t REG_DWORD /d "4" /f <br />
 
 # Isolation and Recovery
 Isolation: Microsoft 
