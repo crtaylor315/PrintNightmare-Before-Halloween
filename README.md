@@ -36,6 +36,11 @@ Example: <br />
 Stop-Service Spooler
 REG ADD  "HKLM\SYSTEM\CurrentControlSet\Services\Spooler"  /v "Start" /t REG_DWORD /d "4" /f <br />
 
+or using the following Powershell commands: <br />
+Stop-Service -Name Spooler -Force
+
+Set-Service -Name Spooler -StartupType Disabled <br />
+
 # Isolation and Recovery
 Isolation: Microsoft 
 
