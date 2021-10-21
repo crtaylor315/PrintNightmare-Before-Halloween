@@ -18,3 +18,4 @@ PrintNightmare is the name given to CVE-2021-1675 (CVSS 9.3 (critical)), which i
 https://blog.talosintelligence.com/2021/07/printnightmare-coverage.html <br />
 https://www.cvedetails.com/cve-details.php?t=1&cve_id=CVE-2021-1675  <br />
 https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-1675 <br />
+https://github.com/cube0x0/CVE-2021-1675 <br />
