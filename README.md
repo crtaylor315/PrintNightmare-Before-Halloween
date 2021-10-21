@@ -13,10 +13,11 @@ The concern is that local authenticated users can obtain admin rights via privil
 
 
 # Mitigation
-First, simply make sure that all security patches have been installed. <br />
+First, make sure that all security patches have been installed then perform the following workaround. <br />
 CISA (Cybersecurity and Infrastructure Security Agency) recommends administrators to disable the print spooler service in Domain Controllers and systems that don't print. “Due to the possibility for exposure, domain controllers and Active Directory admin systems need to have the Print spooler service disabled. The recommended way to do this is using a Group Policy Object.” Admin can also prevent remote print requests by using the Group Policy Object. Local printing will still be available on directly connected devices. 
 
 # Isolation and Recovery
+Isolation: Microsoft 
 
 
 # Sources
@@ -26,3 +27,4 @@ https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-1675 <br />
 https://github.com/cube0x0/CVE-2021-1675 <br />
 https://www.splunk.com/en_us/blog/security/i-pity-the-spool-detecting-printnightmare-cve-2021-34527.html <br />
 https://www.kb.cert.org/vuls/id/383432 <br />
+https://docs.microsoft.com/en-us/windows-hardware/drivers/print/printer-driver-isolation <br />
