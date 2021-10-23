@@ -59,3 +59,4 @@ https://github.com/cube0x0/CVE-2021-1675 <br />
 https://www.splunk.com/en_us/blog/security/i-pity-the-spool-detecting-printnightmare-cve-2021-34527.html <br />
 https://www.kb.cert.org/vuls/id/383432 <br />
 https://docs.microsoft.com/en-us/windows-hardware/drivers/print/printer-driver-isolation <br />
+https://us-cert.cisa.gov/sites/default/files/recommended_practices/MitigationsForVulnerabilitiesCSNetsISA_S508C.pdf <br />
