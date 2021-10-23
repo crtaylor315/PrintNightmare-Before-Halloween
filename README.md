@@ -101,35 +101,30 @@ To disable using Group Policy:
 
 **Make sure to restart the print spooler after it has been disabled**
 
-To isolate the machine, most people think of simply unplugging the machine from the power source; however, some corporations may not want to leap right into this as having this particular machine offline may be very expensive so they may prefer to find alternative ways. <br />
+To isolate the machine, most people think of simply unplugging the machine from the power source; however, some corporations may not want to leap right into this as having this particular machine offline may be very expensive so they may prefer to find alternative ways. 
 
 # Reproduction of the exploit <br />
-There are a couple of options one can perform to reproduce the exploit. As of now, the exploits we are discussing are no longer active without rolling back patches on the Windows target machine and executing code from the Impacket GitHub page to build an environment that can replicate the attack on Linux. On Windows, you must adjust the Windows share settings to allow the event to happen. The target machine must not have the patch that Microsoft rolled out in an attempt to fix this issue. If it does have the patch, it must be rolled back to an earlier time before the patch was applied.
-The exploit can be done via a phishing campaign or through local privilege escalation (LPE). Depending on the type of attacker machine, there are specific packages available to induce the exploit via the Windows print spooler service. For Windows attacker machines, you must use a Powershell script. For Linux attacker machines, you must use a python script. Regardless of which type of scripting is used, they both will be a non-authentic DLL that creates a local user and adds the user to the local admin group. <br />
-
-PoC of PrintNightmare implementing a Python script -Linux based attacker has to use a custom built "Impacket" version from GitHub to build an environment that can replicate the attack. For Linux: gitclone https://github.com/cube0x0/impacket https://github.com/cube0x0/CVE-2021-1675/blob/main/CVE-2021-1675.py was the python script that was built to share a a path to the dirty DLL(Dynamic Link Library) to the targeted host from the outside device using samba <br />
-
-PoC of PrintNightmare implementing a using Windows to attack appears to have a couple more things to adjust such as allowing anonymous logon -share directory creation and staging for sharing using SMB and allowing for everyone to be granted anonymous logon mkdir C:\share icacls C:\share\ /T /grant Anonymous` logon:r icacls C:\share\ /T /grant Everyone:r New-SmbShare -Path C:\share -Name share -ReadAccess 'ANONYMOUS LOGON','Everyone' REG ADD "HKLM\System\CurrentControlSet\Services\LanManServer\Parameters" /v NullSessionPipes /t REG_MULTI_SZ /d srvsvc /f #This will overwrite existing NullSessionPipes REG ADD "HKLM\System\CurrentControlSet\Services\LanManServer\Parameters" /v NullSessionShares /t REG_MULTI_SZ /d share /f REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v EveryoneIncludesAnonymous /t REG_DWORD /d 1 /f REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v RestrictAnonymous /t REG_DWORD /d 0 /f Then RebootAttacker has a few options depending on thier attack enviroment. As of now the exploits we are showing are patched and needs to verified that cve-2021-1675 patch has not been applied or  roll back patches on the Windows target by downgrading to a previous build but all Window machines are vulnerable as of 4th july 2021  <br />
-A PoC of PrintNightmare implementing a Python script <br />
--linux based attacker has to use a  custom built "Impacket" version from github  to build an enviroment that can replicate the attack. for linux.) git clone https://github.com/cube0x0/impacket <br />
-https://github.com/cube0x0/CVE-2021-1675/blob/main/CVE-2021-1675.py was the python script that was built to share a a path to the dirty DLL(Dynamic Link Library) to the targeted host from the outside device using samba <br />
+Reproduction
+Attacker has a few options depending on thier attack enviroment. As of now the exploits we are showing are patched and needs to verified that cve-2021-1675 patch has not been applied or  roll back patches on the Windows target by downgrading to a previous build but all Window machines are vulnerable as of 4th july 2021  
+A PoC of PrintNightmare implementing a Python script
+-linux based attacker has to use a  custom built "Impacket" version from github  to build an enviroment that can replicate the attack. for linux.) git clone https://github.com/cube0x0/impacket
+https://github.com/cube0x0/CVE-2021-1675/blob/main/CVE-2021-1675.py was the python script that was built to share a a path to the dirty DLL(Dynamic Link Library) to the targeted host from the outside device using samba
 B PoC of PrintNightmare implementing a Using windows to attack appears to have a couple more things to adjust such as allowing anonymous logon 
 -share directory creation and staging for sharing using SMB and allowing for everyone to be granted anonymous logon
 mkdir C:\share
 icacls C:\share\ /T /grant Anonymous` logon:r
 icacls C:\share\ /T /grant Everyone:r
 New-SmbShare -Path C:\share -Name share -ReadAccess 'ANONYMOUS LOGON','Everyone'
-REG ADD "HKLM\System\CurrentControlSet\Services\LanManServer\Parameters" /v NullSessionPipes /t REG_MULTI_SZ /d srvsvc /f #This will overwrite existing NullSessionPipes <br />
-REG ADD "HKLM\System\CurrentControlSet\Services\LanManServer\Parameters" /v NullSessionShares /t REG_MULTI_SZ /d share /f <br />
-REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v EveryoneIncludesAnonymous /t REG_DWORD /d 1 /f <br />
-REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v RestrictAnonymous /t REG_DWORD /d 0 /f <br />
+REG ADD "HKLM\System\CurrentControlSet\Services\LanManServer\Parameters" /v NullSessionPipes /t REG_MULTI_SZ /d srvsvc /f #This will overwrite existing NullSessionPipes
+REG ADD "HKLM\System\CurrentControlSet\Services\LanManServer\Parameters" /v NullSessionShares /t REG_MULTI_SZ /d share /f
+REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v EveryoneIncludesAnonymous /t REG_DWORD /d 1 /f
+REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v RestrictAnonymous /t REG_DWORD /d 0 /f
 
-msfvenom was used in the PoC  that we studied to inject the DynamicLinkLibrary (DLL). <br />
+msfvenom, was used in the PoC  that we studied to inject the DynamicLinkLibrary which hosted a payload of a reverse shell on tcp giving remote code execution.
+# Reboot
 
-Then reboot <br />
-
-- You can attack with Windows or Linux machines but each has a different package but similar routes of using the Windows print spooler service of the target
- The exploits used SYSTEM ACCOUNT( "computer itself" account) to bypass local admin groups for LPE (local Privilege Escalation).
+- You can attack with Windows or Linux machines but each has a different package but similar routes of using the (Windows)print spooler service of the target
+ The exploits  used  SYSTEM ACCOUNT( "computer itself" account) to bypass local admin groups for LPE(local Previlege Escalation) and msfvenom to build a payload with a reverse shell for the RCE(Remote code execution)
 
 # Related Links
 https://blog.talosintelligence.com/2021/07/printnightmare-coverage.html <br />
