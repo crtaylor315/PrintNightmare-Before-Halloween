@@ -106,7 +106,9 @@ To isolate the machine, most people think of simply unplugging the machine from 
 # Reproduction of the exploit <br />
 Reproduction
 Attacker has a few options depending on thier attack enviroment. As of now the exploits we are showing are patched and needs to verified that cve-2021-1675 patch has not been applied or roll back patches on the Windows target by downgrading to a previous build but all Window machines are vulnerable as of 4th july 2021  
-A PoC of PrintNightmare implementing a Python script
+A PoC of PrintNightmare implementing a Python script   
+![image](https://user-images.githubusercontent.com/83483181/138563101-9f947155-1b30-48fe-9794-cc27ce814ee5.png)
+
 -linux based attacker has to use a  custom built "Impacket" version from github  to build an enviroment that can replicate the attack. for linux.) git clone https://github.com/cube0x0/impacket
 https://github.com/cube0x0/CVE-2021-1675/blob/main/CVE-2021-1675.py was the python script that was built to share a a path to the dirty DLL(Dynamic Link Library) to the targeted host from the outside device using samba
 B PoC of PrintNightmare implementing a Using windows to attack appears to have a couple more things to adjust such as allowing anonymous logon 
@@ -123,6 +125,7 @@ REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v EveryoneIncludesAnonymous
 REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v RestrictAnonymous /t REG_DWORD /d 0 /f
 
 msfvenom, was used in the PoC  that we studied to inject the DynamicLinkLibrary which hosted a payload of a reverse shell on tcp giving remote code execution.
+![image](https://user-images.githubusercontent.com/83483181/138563150-19ccde57-3363-45c4-94b2-3bf0305eb5dd.png)
 
 - You can attack with Windows or Linux machines but each has a different package but similar routes of using the (Windows)print spooler service of the target
  The exploits  used  SYSTEM ACCOUNT( "computer itself" account) to bypass local admin groups for LPE(local Previlege Escalation) and msfvenom to build a payload with a reverse shell for the RCE(Remote code execution)
