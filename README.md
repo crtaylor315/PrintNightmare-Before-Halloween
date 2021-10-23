@@ -126,11 +126,10 @@ REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v RestrictAnonymous /t REG_
 
 msfvenom, was used in the PoC  that we studied to inject the DynamicLinkLibrary. <br />
 
+Then reboot <br />
 
-# Reboot
-
-- You can attack with Windows or Linux machines but each has a different package but similar routes of using the (Windows)print spooler service of the target
- The exploits  used  SYSTEM ACCOUNT( "computer itself" account) to bypass local admin groups for LPE(local Previlege Escalation)
+- You can attack with Windows or Linux machines but each has a different package but similar routes of using the Window )print spooler service of the target
+ The exploits used SYSTEM ACCOUNT( "computer itself" account) to bypass local admin groups for LPE (local Privilege Escalation).
 
 # Related Links
 https://blog.talosintelligence.com/2021/07/printnightmare-coverage.html <br />
