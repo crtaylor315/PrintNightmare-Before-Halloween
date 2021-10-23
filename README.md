@@ -124,11 +124,11 @@ REG ADD "HKLM\System\CurrentControlSet\Services\LanManServer\Parameters" /v Null
 REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v EveryoneIncludesAnonymous /t REG_DWORD /d 1 /f <br />
 REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v RestrictAnonymous /t REG_DWORD /d 0 /f <br />
 
-msfvenom, was used in the PoC  that we studied to inject the DynamicLinkLibrary. <br />
+msfvenom was used in the PoC  that we studied to inject the DynamicLinkLibrary (DLL). <br />
 
 Then reboot <br />
 
-- You can attack with Windows or Linux machines but each has a different package but similar routes of using the Window )print spooler service of the target
+- You can attack with Windows or Linux machines but each has a different package but similar routes of using the Windows print spooler service of the target
  The exploits used SYSTEM ACCOUNT( "computer itself" account) to bypass local admin groups for LPE (local Privilege Escalation).
 
 # Related Links
