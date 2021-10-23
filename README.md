@@ -66,6 +66,39 @@ Stop-Service -Name Spooler -Force
 
 Set-Service -Name Spooler -StartupType Disabled <br />
 
+![image](https://user-images.githubusercontent.com/63630561/138560380-300e948e-9d90-41d0-bf5d-41852c37cdf6.png)
+
+If you need to print temporarily or a permanent fix has been released, you can enable the feature again. Here's how:
+
+1)	Open Start.
+2)	Search for PowerShell, right-click the top result and select the Run as administrator problem.
+3)	Type the following command to prevent the service from starting back up again during restart and press Enter:
+		Set-Service -Name Spooler -StartupType Automatic
+4)	Type the following command to stop the Print Spooler service and press Enter: <br/>
+		Start-Service -Name Spooler
+
+![image](https://user-images.githubusercontent.com/63630561/138560361-e58c5b29-17c8-4117-9f6c-20cd62dfe44d.png)
+
+If your computer is a non-domain or is part of a Domain then mitigation can also be accomplished using Group Policy.
+
+To disable using Group Policy:
+1)	Open Start
+2)	Search for gpedit.msc and click OK to open the Local Group Policy Editor.
+3)	Browse the following path:
+		Computer Configuration > Administrative Templates > Printers
+4)	On the right side, double-click the Allow Print Spooler to accept client connections: policy.
+
+![image](https://user-images.githubusercontent.com/63630561/138560994-5be06989-e291-4562-acdc-b915ff1dae76.png)
+
+5)	Select the Disabled option.
+
+![image](https://user-images.githubusercontent.com/63630561/138561017-d5668e11-b436-44c8-8cc9-a51757aa11f9.png)
+
+6)	Click the Apply button
+7)	Click the OK button.
+
+*** Disabling external network connections will prevent the vulnerability. If your Windows 10 machine is setup to share out a printer (print server) then users will not be able to print with this setting.
+
 **Make sure to restart the print spooler after it has been disabled**
 
 To isolate the machine, most people think of simply unplugging the machine from the power source; however, some corporations may not want to leap right into this as having this particular machine offline may be very expensive so they may prefer to find alternative ways. 
@@ -74,22 +107,6 @@ To isolate the machine, most people think of simply unplugging the machine from 
 
 There are a couple of options one can perform to reproduce the exploit. As of now, the exploits we are discussing are no longer active without rolling back patches on the Windows target machine and executing code from the Impacket GitHub page to build an environment that can replicate the attack on Linux. On Windows, you must adjust the Windows share settings to allow the event to happen. The target machine must not have the patch that Microsoft rolled out in an attempt to fix this issue. If it does have the patch, it must be rolled back to an earlier time before the patch was applied. <br />
 The exploit can be done via a phishing campaign or through local privilege escalation (LPE). Depending on the type of attacker machine, there are specific packages available to induce the exploit via the Windows print spooler service. For Windows attacker machines, you must use a Powershell script. For Linux attacker machines, you must use a python script. Regardless of which type of scripting is used, they both will be a non-authentic DLL that creates a local user and adds the user to the local admin group. <br />
-
-PoC of PrintNightmare implementing a Python script
--Linux based attacker has to use a custom built "Impacket" version from GitHub  to build an environment that can replicate the attack. For Linux: gitclone https://github.com/cube0x0/impacket
-https://github.com/cube0x0/CVE-2021-1675/blob/main/CVE-2021-1675.py was the python script that was built to share a a path to the dirty DLL(Dynamic Link Library) to the targeted host from the outside device using samba <br />
-
-PoC of PrintNightmare implementing a using Windows to attack appears to have a couple more things to adjust such as allowing anonymous logon 
--share directory creation and staging for sharing using SMB and allowing for everyone to be granted anonymous logon
-mkdir C:\share
-icacls C:\share\ /T /grant Anonymous` logon:r
-icacls C:\share\ /T /grant Everyone:r
-New-SmbShare -Path C:\share -Name share -ReadAccess 'ANONYMOUS LOGON','Everyone'
-REG ADD "HKLM\System\CurrentControlSet\Services\LanManServer\Parameters" /v NullSessionPipes /t REG_MULTI_SZ /d srvsvc /f #This will overwrite existing NullSessionPipes
-REG ADD "HKLM\System\CurrentControlSet\Services\LanManServer\Parameters" /v NullSessionShares /t REG_MULTI_SZ /d share /f
-REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v EveryoneIncludesAnonymous /t REG_DWORD /d 1 /f
-REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v RestrictAnonymous /t REG_DWORD /d 0 /f
-Then Reboot <br />
 
 # Related Links
 https://blog.talosintelligence.com/2021/07/printnightmare-coverage.html <br />
@@ -101,3 +118,4 @@ https://www.kb.cert.org/vuls/id/383432 <br />
 https://docs.microsoft.com/en-us/windows-hardware/drivers/print/printer-driver-isolation <br />
 https://us-cert.cisa.gov/sites/default/files/recommended_practices/MitigationsForVulnerabilitiesCSNetsISA_S508C.pdf <br />
 https://www.securityweek.com/isolation-based-security-provides-prevention-and-enhances-incident-response
+https://www.windowscentral.com/how-mitigate-print-spooler-printnightmare-vulnerability-windows-10
