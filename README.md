@@ -114,6 +114,7 @@ https://github.com/cube0x0/CVE-2021-1675/blob/main/CVE-2021-1675.py was the pyth
 B PoC of PrintNightmare implementing a Using windows to attack appears to have a couple more things to adjust such as allowing anonymous logon 
 -share directory creation and staging for sharing using SMB and allowing for everyone to be granted anonymous logon
 ![image](https://user-images.githubusercontent.com/83483181/138562699-6a58de15-100a-416b-9723-d8c88c94c757.png)
+![image](https://user-images.githubusercontent.com/83483181/138563339-126b3403-4d19-40d0-a620-d2c75cf0c1e7.png)
 
 mkdir C:\share
 icacls C:\share\ /T /grant Anonymous` logon:r
