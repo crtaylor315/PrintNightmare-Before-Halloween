@@ -57,6 +57,12 @@ First, make sure that all security patches have been installed then perform the 
 CISA (Cybersecurity and Infrastructure Security Agency) recommends administrators to disable the print spooler service in Domain Controllers and systems that do not print. _“Due to the possibility for exposure, domain controllers and Active Directory admin systems need to have the Print spooler service disabled. The recommended way to do this is using a Group Policy Object.”_ <br />
 Admin can also prevent remote print requests by using the Group Policy Object. Local printing will still be available for directly connected devices.
 
+To first determine in the print spooler service is running:
+1)	Open Start.
+2)	Search for PowerShell, right-click the top result and select the Run as administrator.
+3)	Type the following command. <br/>
+		Get-Service -Name Spooler
+
 Example: <br />
 Stop-Service Spooler
 REG ADD  "HKLM\SYSTEM\CurrentControlSet\Services\Spooler"  /v "Start" /t REG_DWORD /d "4" /f <br />
@@ -68,10 +74,12 @@ Set-Service -Name Spooler -StartupType Disabled <br />
 
 ![image](https://user-images.githubusercontent.com/63630561/138560380-300e948e-9d90-41d0-bf5d-41852c37cdf6.png)
 
+**Make sure to restart the print spooler after it has been disabled**
+
 If you need to print temporarily or a permanent fix has been released, you can enable the feature again. Here's how:
 
 1)	Open Start.
-2)	Search for PowerShell, right-click the top result and select the Run as administrator problem.
+2)	Search for PowerShell, right-click the top result and select the Run as administrator.
 3)	Type the following command to prevent the service from starting back up again during restart and press Enter:
 		Set-Service -Name Spooler -StartupType Automatic
 4)	Type the following command to stop the Print Spooler service and press Enter: <br/>
@@ -99,7 +107,14 @@ To disable using Group Policy:
 
 *** Disabling external network connections will prevent the vulnerability. If your Windows 10 machine is setup to share out a printer (print server) then users will not be able to print with this setting.
 
-**Make sure to restart the print spooler after it has been disabled**
+Ensuring that the latest updates available are applied is always a good rule to follow before and after learning of this vulnerability.
+In addition to updates, checking registry settings is also a good option to address this vulnerability. Ensure the following settings are set to 0 (zero) or not defined.
+
+	HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Printers\PointAndPrint
+	NoWarningNoElevationOnInstall = 0 (DWORD) or not defined (default setting)
+	UpdatePromptSettings = 0 (DWORD) or not defined (default setting)
+
+Having NoWarningNoElevationOnInstall set to 1 makes your system vulnerable by design.
 
 To isolate the machine, most people think of simply unplugging the machine from the power source; however, some corporations may not want to leap right into this as having this particular machine offline may be very expensive so they may prefer to find alternative ways. 
 
@@ -120,11 +135,11 @@ REG ADD "HKLM\System\CurrentControlSet\Services\LanManServer\Parameters" /v Null
 REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v EveryoneIncludesAnonymous /t REG_DWORD /d 1 /f
 REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v RestrictAnonymous /t REG_DWORD /d 0 /f
 
-msfvenom, was used in the PoC  that we studied to inject the DynamicLinkLibrary which hosted a payload of a reverse shell on tcp giving remote code execution.
+msfvenom, was used in the PoC  that we studied to inject the DynamicLinkLibrary.
 # Reboot
 
 - You can attack with Windows or Linux machines but each has a different package but similar routes of using the (Windows)print spooler service of the target
- The exploits  used  SYSTEM ACCOUNT( "computer itself" account) to bypass local admin groups for LPE(local Previlege Escalation) and msfvenom to build a payload with a reverse shell for the RCE(Remote code execution)
+ The exploits  used  SYSTEM ACCOUNT( "computer itself" account) to bypass local admin groups for LPE(local Previlege Escalation)
 
 # Related Links
 https://blog.talosintelligence.com/2021/07/printnightmare-coverage.html <br />
@@ -137,3 +152,4 @@ https://docs.microsoft.com/en-us/windows-hardware/drivers/print/printer-driver-i
 https://us-cert.cisa.gov/sites/default/files/recommended_practices/MitigationsForVulnerabilitiesCSNetsISA_S508C.pdf <br />
 https://www.securityweek.com/isolation-based-security-provides-prevention-and-enhances-incident-response
 https://www.windowscentral.com/how-mitigate-print-spooler-printnightmare-vulnerability-windows-10
+https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-34527
