@@ -14,6 +14,28 @@ The exploit was initially patched by Microsoft on June 8, 2021 and has been patc
 Is your system vulnerable? Here's how to find out: <br />
 We can run a scan in the command line using the code provided by Impacket called **rpcdump.py** (located in the code section) to scan for vulnerable hosts. If it returns with a value, the host may be vulnerable to the exploit. <br />
 
+ Detecting and or Recognizing What an Attack Looks Like on a Victim’s OS with the PrintNightMare Exploit
+Now for the savvy computer advanced user, it’s a no brainer to disable any Windows Print Spooler service but if this is like a foreign language and by the way it is, then the admin of the computer or cyber security blue team can take 6 easy steps to disable the Print Spooler option in your operating system.
+1.)	In Start Menu run Powershell as an administrator 
+2.)	Type and Enter Stop-service -Name Spooler -Force in command line
+3.)	To Block and Prevent Service from restarting when system gets rebooted enter the following command Set-Service -Name Spooler -StartupType Disabled
+4.)	Open Start and search for gpedit.msc. 
+5.)	Now open computer configuration < Administrative Templates < Printers. When you see Allow Print Spooler to Accept client connections double click
+6.)	The final Step is to select Disabled option and click it. 
+		
+The Print Spooler is the middleman between your computer and your printer. This is its basic function to manage print jobs. Thus, its highly recommended by security professionals to disable this option.
+There are tools like Semperis’ Directory Services Protector (DPS) that continuously detects and scans systems for red flags or indicators of compromise on an operating system. 
+Some researchers have observed and logged activity for what a compromised system using the PrintNightMare might look like. The use of malicious DLL files are noted, and remote use of SMB share is redirected by attacker to inject into the memory process of the targeted system, and finalizes attack by loading the DLL in the Print Service Spooler. Other red flags to look for, using Process Explorer, include processes being spawned, error codes of 808 from event source are visible to victim, in event a new printer is added or updated to system 316 code generates and well basically the OS will be getting lots of error messages and codes.
+Other eye openers to keep an eye open for would be creation of new DLL files under spool drivers, suspicious activity of spawning processes from Print Service Spooler, any outbound connection originating from child processes relating to Print Spooler services, and Malware detection from Print Spooler path. Once your machine has been compromised the attackers now remotely and gradually take over your entire system. This is why is its critical to disable the Print Spooler option if your using a supported version of Windows to avoid being hacked.  
+
+Damage Control & the Recovery Process Once a System has been Compromised  
+Once a system has been compromised its important to isolate the damage in a safe environment and is always a good idea to have backup operating system in case it crashes or was targeted. In the case, where the entire system is taken over the best solution is to delete and or erase everything on your hard drive and back it up with your backup copy that was taken prior to attack. If no backup copy is readily available, then unfortunately there is a lesson to be learned—and sometimes these lessons are hard but well learned. A system restore will be needed from an earlier uncompromised time.
+After a reinstallation of Microsoft Windows 10 or newest version has been installed make sure all security patches are up to date and immediately disable the Print Spooler option. Keeping your Windows operating system updated and patched in a key factor in cyber security and is highly recommended by all cyber security professionals in the industry. Often some of us get lazy or simply forget to update our computers but there is an option which can be enabled for automatic updates on system and software which can help keep your machine running and operating with less worry of an attack; please note, however, attackers will always find ways or backdoors to attack a victim (s). By reinstalling Windows, most software including printer drivers will be updated and or patched. A rule of thumb, avoid downloading any suspicious or weird links which can be malicious malware, viruses, or bad stuff your os does not need. Moreover, the manufacture’s website has latest drivers and patches available for public use. The deletion of unnecessary registry keys helps to avoid this specific type of attack. Always scan your computer and use tools to help detect and or protect. Frequently, run chkdsk utility to check for disk errors relating to the Print Spooler service. Make sure to change Spooler recovery options to avoid an automatic restart of software. Also, resetting internet settings can help system run smoother without interference from Spooler. If possible, replace the infection printer. These are some steps that can be taken when recovering from PrintNightmare exploit using the print spooler vulnerability.
+
+
+
+
+
 Example: <br />
 rpcdump.py @192.168.1.10 | egrep 'MS-RPRN|MS-PAR'
 
