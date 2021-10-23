@@ -30,7 +30,7 @@ HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint
 Or you can use the following Powershell command: <br />
 Get-Service -Name Spooler <br />
 
-# Mitigation
+# Mitigation and Isolation
 First, make sure that all security patches have been installed then perform the following workaround for an added layer of security. <br />
 CISA (Cybersecurity and Infrastructure Security Agency) recommends administrators to disable the print spooler service in Domain Controllers and systems that do not print. _“Due to the possibility for exposure, domain controllers and Active Directory admin systems need to have the Print spooler service disabled. The recommended way to do this is using a Group Policy Object.”_ <br />
 Admin can also prevent remote print requests by using the Group Policy Object. Local printing will still be available for directly connected devices.
@@ -46,6 +46,8 @@ Set-Service -Name Spooler -StartupType Disabled <br />
 
 **Make sure to restart the print spooler after it has been disabled**
 
+To isolate the machine, most people think of simply unplugging the machine from the power source; however, some corporations may not want to leap right into this as having this particular machine offline may be very expensive so they may prefer to find alternative ways. 
+
 # Reproduction of the exploit <br />
 
 There are a couple of options one can perform to reproduce the exploit. As of now, the exploits we are discussing are no longer active without rolling back patches on the Windows target machine and executing code from the Impacket GitHub page to build an environment that can replicate the attack on Linux. On Windows, you must adjust the Windows share settings to allow the event to happen. The target machine must not have the patch that Microsoft rolled out in an attempt to fix this issue. If it does have the patch, it must be rolled back to an earlier time before the patch was applied. <br />
@@ -60,3 +62,4 @@ https://www.splunk.com/en_us/blog/security/i-pity-the-spool-detecting-printnight
 https://www.kb.cert.org/vuls/id/383432 <br />
 https://docs.microsoft.com/en-us/windows-hardware/drivers/print/printer-driver-isolation <br />
 https://us-cert.cisa.gov/sites/default/files/recommended_practices/MitigationsForVulnerabilitiesCSNetsISA_S508C.pdf <br />
+https://www.securityweek.com/isolation-based-security-provides-prevention-and-enhances-incident-response
