@@ -32,7 +32,7 @@ Damage Control & the Recovery Process Once a System has been Compromised
 Once a system has been compromised its important to isolate the damage in a safe environment and is always a good idea to have backup operating system in case it crashes or was targeted. In the case, where the entire system is taken over the best solution is to delete and or erase everything on your hard drive and back it up with your backup copy that was taken prior to attack. If no backup copy is readily available, then unfortunately there is a lesson to be learned—and sometimes these lessons are hard but well learned. A system restore will be needed from an earlier uncompromised time.
 After a reinstallation of Microsoft Windows 10 or newest version has been installed make sure all security patches are up to date and immediately disable the Print Spooler option. Keeping your Windows operating system updated and patched in a key factor in cyber security and is highly recommended by all cyber security professionals in the industry. Often some of us get lazy or simply forget to update our computers but there is an option which can be enabled for automatic updates on system and software which can help keep your machine running and operating with less worry of an attack; please note, however, attackers will always find ways or backdoors to attack a victim (s). By reinstalling Windows, most software including printer drivers will be updated and or patched. A rule of thumb, avoid downloading any suspicious or weird links which can be malicious malware, viruses, or bad stuff your os does not need. Moreover, the manufacture’s website has latest drivers and patches available for public use. The deletion of unnecessary registry keys helps to avoid this specific type of attack. Always scan your computer and use tools to help detect and or protect. Frequently, run chkdsk utility to check for disk errors relating to the Print Spooler service. Make sure to change Spooler recovery options to avoid an automatic restart of software. Also, resetting internet settings can help system run smoother without interference from Spooler. If possible, replace the infection printer. These are some steps that can be taken when recovering from PrintNightmare exploit using the print spooler vulnerability.
 
-
+![image](https://user-images.githubusercontent.com/83483181/138566092-dded20b8-aca8-40e3-b5b5-db49eaaa6350.png)
 
 
 
@@ -142,3 +142,14 @@ https://docs.microsoft.com/en-us/windows-hardware/drivers/print/printer-driver-i
 https://us-cert.cisa.gov/sites/default/files/recommended_practices/MitigationsForVulnerabilitiesCSNetsISA_S508C.pdf <br />
 https://www.securityweek.com/isolation-based-security-provides-prevention-and-enhances-incident-response
 https://www.windowscentral.com/how-mitigate-print-spooler-printnightmare-vulnerability-windows-10
+REsources
+https://user-images.githubusercontent.com/83483181/138562699-6a58de15-100a-416b-9723-d8c88c94c757.png
+https://github.com/nemo-wq/PrintNightmare-CVE-2021-34527
+https://github.com/cube0x0/CVE-2021-1675
+
+
+https://user-images.githubusercontent.com/83483181/138562699-6a58de15-100a-416b-9723-d8c88c94c757.png
+https://user-images.githubusercontent.com/83483181/138563101-9f947155-1b30-48fe-9794-cc27ce814ee5.png
+https://user-images.githubusercontent.com/63630561/138561017-d5668e11-b436-44c8-8cc9-a51757aa11f9.png
+https://user-images.githubusercontent.com/63630561/138560994-5be06989-e291-4562-acdc-b915ff1dae76.png
+https://user-images.githubusercontent.com/63630561/138560994-5be06989-e291-4562-acdc-b915ff1dae76.png
