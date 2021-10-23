@@ -48,6 +48,9 @@ Set-Service -Name Spooler -StartupType Disabled <br />
 
 # Reproduction of the exploit <br />
 
+There are a couple of options one can perform to reproduce the exploit. As of now, the exploits we are discussing are no longer active without rolling back patches on the Windows target machine and executing code from the Impacket GitHub page to build an environment that can replicate the attack on Linux. On Windows, you must adjust the Windows share settings to allow the event to happen. The target machine must not have the patch that Microsoft rolled out in an attempt to fix this issue. If it does have the patch, it must be rolled back to an earlier time before the patch was applied. <br />
+The exploit can be done via a phishing campaign or through local privilege escalation (LPE). Depending on the type of attacker machine, there are specific packages available to induce the exploit via the Windows print spooler service. For Windows attacker machines, you must use a Powershell script. For Linux attacker machines, you must use a python script. Regardless of which type of scripting is used, they both will be a non-authentic DLL that creates a local user and adds the user to the local admin group. <br />
+
 # Related Links
 https://blog.talosintelligence.com/2021/07/printnightmare-coverage.html <br />
 https://www.cvedetails.com/cve-details.php?t=1&cve_id=CVE-2021-1675  <br />
