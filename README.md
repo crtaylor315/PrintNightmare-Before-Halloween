@@ -74,8 +74,28 @@ To disable using Group Policy: <br />
 7) Click the OK button. <br />
 **Disabling external network connections will prevent vulnerability.** <br />
 If your Windows 10 machine is set up to share a printer (print server) then users will not be able to print with this setting.
+
 **Make sure to restart the print spooler after it has been disabled.**
+
+Microsoft released security updates July 6, 2021 (and included in subsequent updates as well) which includes a partial fix to this vulnerability. The update makes it where non-administrators will not be able to install drivers (signed or unsigned). The problem is that many home users and many organizations make a normal user an administrator to reduce frustrations and/or helpdesk calls. If a normal user is setup on the computer with administrator rights than this security update will not help. <br />
+
+Another option to mitigate this vulnerability is to change the Group Policy settings for Point and Print Restrictions: <br />
+
+1)  Open the group policy editor tool and go to Computer Configuration > Administrative Templates > Printers. <br />
+2)  Configure the Point and Print Restrictions Group Policy setting as follows: <br />
+    a)  Set the the Point and Print Restrictions Group Policy setting to "Enabled". <br />
+    b)  "When installing drivers for a new connection": "Show warning and elevation prompt". <br />
+    c)  "When updating drivers for an existing connection": "Show warning and elevation prompt". <br />
+    
+![image](https://user-images.githubusercontent.com/63630561/138598236-cf78f7a3-616e-495f-91d5-7fcd848abf1a.png)
+
+*** It is highly recommended that this be applied to all machines that host the print spooler service <br />
+
+
+
 To isolate the machine, most people think of simply unplugging the machine from the power source; however, some corporations may not want to leap right into this as having this particular machine offline may be very expensive so they may prefer to find alternative ways.
+
+
 
 # Reproduction of the exploit <br />
 The attacker has a few options depending on their attack environment. As of now, the exploits we are showing are patched and it needs to be verified that the CVE-2021-1675 patch has not been applied or roll back patches on the Windows target by downgrading to a previous build but all Window machines are vulnerable as of 4 July 2021.
@@ -111,12 +131,14 @@ https://www.splunk.com/en_us/blog/security/i-pity-the-spool-detecting-printnight
 https://www.kb.cert.org/vuls/id/383432 <br />
 https://docs.microsoft.com/en-us/windows-hardware/drivers/print/printer-driver-isolation <br />
 https://us-cert.cisa.gov/sites/default/files/recommended_practices/MitigationsForVulnerabilitiesCSNetsISA_S508C.pdf <br />
-https://www.securityweek.com/isolation-based-security-provides-prevention-and-enhances-incident-response
-https://www.windowscentral.com/how-mitigate-print-spooler-printnightmare-vulnerability-windows-10
-REsources
-https://user-images.githubusercontent.com/83483181/138562699-6a58de15-100a-416b-9723-d8c88c94c757.png
-https://github.com/nemo-wq/PrintNightmare-CVE-2021-34527
-https://github.com/cube0x0/CVE-2021-1675
+https://www.securityweek.com/isolation-based-security-provides-prevention-and-enhances-incident-response <br />
+https://www.windowscentral.com/how-mitigate-print-spooler-printnightmare-vulnerability-windows-10 <br />
+https://support.microsoft.com/en-us/topic/kb5005010-restricting-installation-of-new-printer-drivers-after-applying-the-july-6-2021-updates-31b91c02-05bc-4ada-a7ea-183b129578a7 <br />
+Resources <br />
+https://user-images.githubusercontent.com/83483181/138562699-6a58de15-100a-416b-9723-d8c88c94c757.png <br />
+https://github.com/nemo-wq/PrintNightmare-CVE-2021-34527 <br />
+https://github.com/cube0x0/CVE-2021-1675 <br />
+
 
 
 https://user-images.githubusercontent.com/83483181/138562699-6a58de15-100a-416b-9723-d8c88c94c757.png
